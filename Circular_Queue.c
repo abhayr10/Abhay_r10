@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
-int q[30],r=-1,f=-1,val,max,opt;
+int q[30],rear=-1,front=-1,val,max,opt; 
 int main()
 {
      char ch='y';
-    printf("Enter the QUEUE size:");
+    printf("Enter the QUEUE size:");     //Asking the size of the queue from the user.
     scanf("%d",&max);
     printf("\n");
-    for( ;ch=='y'; )
+    for( ;ch=='y'; )                    //for loop to repeat the process of menu driven program multiple times.
     {
         printf("MENU\n");
         printf("1.ENQUEUE\n");
@@ -17,7 +17,7 @@ int main()
         printf("Enter your choice:\n");
         scanf("%d",&opt);
         printf("\n");
-        switch(opt)
+        switch(opt)                //switch cases for enqueue, display, dequeue and exit options respectively.
         {
         case 1:
             enqueue();
@@ -40,18 +40,18 @@ int main()
         printf("\n");
     }
 }
-void enqueue()
+void enqueue()//ENQUEUE OPERATION
 {
-    if((r==-1)&&(f==-1))
+    if((rear==-1)&&(front==-1))                   //First Case:  When the queue is empty
     {
         printf("QUEUE IS CURRENTLY EMPTY\n");
         printf("Enter the value into queue: ");
         scanf("%d",&val);
-        r=0;
-        f=0;
-        q[r]=val;
+        rear=0;
+        front=0;
+        q[rear]=val;
     }
-    else if((r+1)%max==f)
+    else if((rear+1)%max==front)                  //Second case: When rear end is equal to front end after the concept of circular queue happens.
     {
         printf("QUEUE IS FULL\n");
     }
@@ -59,39 +59,39 @@ void enqueue()
     {
         printf("Enter the value into queue: ");
         scanf("%d",&val);
-        r=(r+1)%max;
-        q[r]=val;
+        rear=(rear+1)%max;
+        q[rear]=val;
     }
 }
-void dequeue()
+void dequeue()                //DEQUEUE OPERATION
 {
-    if((r==-1)&&(f==-1))
+    if((rear==-1)&&(front==-1))              //When there are no elements in the queue initially
     {
         printf("QUEUE IS EMPTY, NO ELEMENTS CAN BE DELETED\n");
     }
-    else if(r==f)
+    else if(rear==front)
     {
-        printf("The element deleted is %d\n",q[f]);
-        r=-1;
-        f=-1;
+        printf("The element deleted is %d\n",q[front]);
+        rear=-1;
+        front=-1;
     }
     else
     {
-        printf("The element deleted is %d\n",q[f]);
-        f=(f+1)%max;
+        printf("The element deleted is %d\n",q[front]);
+        front=(front+1)%max;
     }
 }
-void display()
+void display()                //DISPLAY OPERATION
 {
     int i;
-    if((r==-1)&&(f==-1))
+    if((rear==-1)&&(front==-1))
     {
         printf("QUEUE IS EMPTY, NO ELEMENTS CAN BE DISPLAYED\n");
     }
     else
     {
         printf("The elements are: \n");
-        for(i=f;i<=r;i++)
+        for(i=front;i<=rear;i++)
         {
             printf("%d\t",q[i]);
         }
